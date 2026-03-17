@@ -1,0 +1,68 @@
+/* App ka main styling - cool dikhna chahiye 😎 */
+.app {
+  background: white;
+  border-radius: 20px;
+  padding: 32px;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.app-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #4c1d95;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.app-subtitle {
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+}
+
+/* Filter buttons */
+.filters {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0 8px;
+}
+
+.filter-btn {
+  flex: 1;
+  padding: 8px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  font-weight: 600;
+  color: #6b7280;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: #7c3aed;
+  color: #7c3aed;
+}
+
+.filter-btn.active {
+  background: #7c3aed;
+  border-color: #7c3aed;
+  color: white;
+}
+
+.stats {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin-bottom: 12px;
+}
+
+/* Loading spinner */
+.spinner {
+  text-align: center;
+  padding: 32px;
+  font-size: 1.1rem;
+  color: #7c3aed;
+}

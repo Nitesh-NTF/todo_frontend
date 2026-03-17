@@ -1,0 +1,59 @@
+/* TodoItem styling */
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.todo-item:hover {
+  border-color: #e5e7eb;
+  background: #f3f4f6;
+}
+
+/* Completed todo - thoda faded dikhao */
+.todo-item.completed {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.todo-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #7c3aed;
+  flex-shrink: 0;
+}
+
+.todo-title {
+  flex: 1;
+  font-size: 1rem;
+  color: #1f2937;
+  word-break: break-word;
+}
+
+/* Strike-through jab todo complete ho jaye */
+.todo-item.completed .todo-title {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 4px;
+  border-radius: 6px;
+  transition: transform 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+
+.delete-btn:hover {
+  transform: scale(1.2);
+  background: #fee2e2;
+}
