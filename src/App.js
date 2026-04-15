@@ -1,18 +1,18 @@
-// Main App - yahan saara logic hai bhai 🧠
+// Main App - fixed version ✅
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import "./App.css";
 
-const API = "/todos";
+const API = `${process.env.REACT_APP_BASE_API}/todos`;
 
 function App() {
   const [todos, setTodos] = useState([]);
-  const [filter, setFilter] = useState("all"); // all | completed | pending
+  const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
 
-  // App load hote hi saare todos fetch karo
+  // Fetch todos on load
   useEffect(() => {
     fetchTodos();
   }, []);
@@ -20,51 +20,73 @@ function App() {
   const fetchTodos = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(API);
-      setTodos(data);
+      const res = await axios.get(API);
+
+      console.log("API Response:", res.data);
+
+      // ✅ handle both formats (array OR {data: []})
+      const todosData = Array.isArray(res.data)
+        ? res.data
+        : res.data.data || [];
+
+      setTodos(todosData);
     } catch (err) {
       console.error("Todos nahi aaye bhai:", err.message);
+      setTodos([]); // fallback
     } finally {
       setLoading(false);
     }
   };
 
-  // Naya todo add karo
+  // Add todo
   const addTodo = async (title) => {
     try {
-      const { data } = await axios.post(API, { title });
-      setTodos((prev) => [data, ...prev]); // UI mein turant dikhao
+      const res = await axios.post(API, { title });
+
+      const newTodo = res.data.data || res.data;
+
+      setTodos((prev) => [newTodo, ...prev]);
     } catch (err) {
       console.error("Add nahi hua:", err.message);
     }
   };
 
-  // Todo complete/incomplete toggle karo
+  // Toggle todo
   const toggleTodo = async (id, completed) => {
     try {
-      const { data } = await axios.put(`${API}/${id}`, { completed: !completed });
-      setTodos((prev) => prev.map((t) => (t._id === id ? data : t)));
+      const res = await axios.put(`${API}/${id}`, {
+        completed: !completed,
+      });
+
+      const updatedTodo = res.data.data || res.data;
+
+      setTodos((prev) =>
+        prev.map((t) => (t._id === id ? updatedTodo : t))
+      );
     } catch (err) {
       console.error("Toggle nahi hua:", err.message);
     }
   };
 
-  // Todo delete karo
+  // Delete todo
   const deleteTodo = async (id) => {
     try {
       await axios.delete(`${API}/${id}`);
+
       setTodos((prev) => prev.filter((t) => t._id !== id));
     } catch (err) {
       console.error("Delete nahi hua:", err.message);
     }
   };
 
-  // Filter apply karo
-  const filteredTodos = todos.filter((t) => {
-    if (filter === "completed") return t.completed;
-    if (filter === "pending") return !t.completed;
-    return true;
-  });
+  // Filter logic
+  const filteredTodos = Array.isArray(todos)
+    ? todos.filter((t) => {
+        if (filter === "completed") return t.completed;
+        if (filter === "pending") return !t.completed;
+        return true;
+      })
+    : [];
 
   const filters = ["all", "pending", "completed"];
 
@@ -90,10 +112,13 @@ function App() {
 
       {/* Stats */}
       <p className="stats">
-        {todos.filter((t) => !t.completed).length} kaam baaki hai 💪
+        {Array.isArray(todos)
+          ? todos.filter((t) => !t.completed).length
+          : 0}{" "}
+        kaam baaki hai 💪
       </p>
 
-      {/* Loading spinner */}
+      {/* Loading */}
       {loading ? (
         <div className="spinner">⏳ Load ho raha hai...</div>
       ) : (
