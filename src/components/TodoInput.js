@@ -16,7 +16,7 @@ function TodoInput({ onAdd }) {
     <form className="todo-input-form" onSubmit={handleSubmit}>
       <input
         type="text"
-        className="todo-input"
+        className="todo-input yuvraj"
         placeholder="Kya karna? 🤔"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
