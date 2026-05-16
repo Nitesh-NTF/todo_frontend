@@ -17,7 +17,7 @@ function TodoInput({ onAdd }) {
       <input
         type="text"
         className="todo-input"
-        placeholder="Kya karna hai aaj? 🤔"
+        placeholder="Kya karna? 🤔"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
