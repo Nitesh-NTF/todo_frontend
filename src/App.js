@@ -94,6 +94,7 @@ function App() {
     <div className="app">
       <h1 className="app-title">Kaam Karle Bhai 😄</h1>
       <p className="app-subtitle">Tera personal task manager hai yeh!</p>
+      <p>CI/CD autodeploy test 1</p>
 
       <TodoInput onAdd={addTodo} />
 
